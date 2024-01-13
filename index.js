@@ -1,4 +1,3 @@
-const path = require("path");
 const deleteFileOrDirectory = require("./src/deleteFileOrDirectory");
 const JSONFileManager = require("./src/JSONFileManager");
 const session = require("./src/session");
