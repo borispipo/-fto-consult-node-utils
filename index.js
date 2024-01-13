@@ -15,7 +15,6 @@ module.exports = {
     isWritable : require("./src/isWritable"),
     copy : require("./src/copy"),
     isRegExp : require("./src/isRegex"),
-    paths : require("./src/paths"),
     exec : require("./src/exec"),
     uniqid : require("./src/uniqid"),
     debounce : require("./src/debounce"),
