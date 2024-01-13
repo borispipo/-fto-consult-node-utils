@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const electron = require('electron');
 const Conf = require('conf');
 
 class ElectronStore extends Conf {
@@ -21,9 +20,6 @@ class ElectronStore extends Conf {
 		options.configName = options.name;
 		delete options.name;
 		super(options);
-	}
-	openInEditor() {
-		electron.shell.openItem(this.path);
 	}
 }
 

@@ -1,7 +1,16 @@
 // Copyright 2022 @fto-consult/Boris Fouomene. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-const replaceAll = require("./replaceAll");
+function replaceAll (value,find,replace){
+  if(typeof value !=='string' || typeof find !=='string' || typeof replace !=='string') return "";
+  return value.split(find).join(replace)
+}
+
+if(typeof String.prototype.replaceAll !== 'function'){
+  String.prototype.replaceAll = function(find,replace){
+      return replaceAll(this.toString(),find,replace);
+  }
+}
 
 const ltrim = function(current,str) {
     if(typeof current !=="string") return "";
@@ -140,5 +149,5 @@ if(typeof String.prototype.removeAccents !=='function'){
 }
 
 module.exports = {
-  ltrim,rtrim,isNumberString:isStringNumber,isNonNullString,isNumber:isStringNumber,sprintf,escapeQuote,escapeDoubleQuotes,escapeSingleQuotes,removeSpecialChars
+  ltrim,rtrim,isNumberString:isStringNumber,replaceAll,isNonNullString,isNumber:isStringNumber,sprintf,escapeQuote,escapeDoubleQuotes,escapeSingleQuotes,removeSpecialChars
 }
