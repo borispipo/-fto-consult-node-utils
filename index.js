@@ -1,10 +1,12 @@
 const path = require("path");
 const deleteFileOrDirectory = require("./src/deleteFileOrDirectory");
 const JSONFileManager = require("./src/JSONFileManager");
+const session = require("./src/session");
 module.exports = {
     ...require("./src/object"),
     Config : require("./src/config"),
-    session : require("./src/session"),
+    session,
+    Session : session, 
     createDir : require("./src/createDir"),
     getDirname : require("./src/getDirname"),
     getDirName : require("./src/getDirname"),
