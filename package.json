@@ -1,0 +1,25 @@
+{
+  "name": "@fto-consult/node-utils",
+  "version": "1.0.0",
+  "description": "Bibliothèque d'outils pour application nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Node",
+    "utils",
+    "fonctions",
+    "utiles",
+    "copy",
+    "file"
+  ],
+  "author": "Boris Fouomene",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "conf": "^12.0.0",
+    "fs-extra": "^11.2.0",
+    "sanitize-filename": "^1.6.3"
+  }
+}
