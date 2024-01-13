@@ -11,6 +11,7 @@ module.exports = {
     createDir : require("./src/createDir"),
     getDirname : require("./src/getDirname"),
     getDirName : require("./src/getDirname"),
+    getAppDataPath : require("./getAppDataPath"),
     writeFile : require("./src/writeFile"),
     isWritable : require("./src/isWritable"),
     copy : require("./src/copy"),
