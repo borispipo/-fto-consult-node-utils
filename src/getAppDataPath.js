@@ -4,14 +4,13 @@ const fs = require("fs");
 const isWritable = require("./isWritable");
 
 module.exports = function getAppDataPath(appName) {
-  const platform = process.platform;
   let p = undefined;
   appName = typeof appName =="string" && appName.trim().toUpperCase() || "";
-  const appDataPath = isWritable(process.env.ProgramData) && process.env.ProgramData || isWritable(process.env.ALLUSERSPROFILE) && process.env.ALLUSERSPROFILE || process.env["APPDATA"]; 
+  let appDataPath = isWritable(process.env.ProgramData) && process.env.ProgramData || isWritable(process.env.ALLUSERSPROFILE) && process.env.ALLUSERSPROFILE || process.env["APPDATA"]; 
   if (!appDataPath || !fs.existsSync(appDataPath)) {
     const homePath = homedir();
     const HOME = process.env.HOME;
-    switch (platform()) {
+    switch (process.platform()) {
       case "win32":
         p = path.join("AppData", "Roaming");
         if(fs.existsSync(path.join(homePath,p))){
@@ -43,7 +42,7 @@ module.exports = function getAppDataPath(appName) {
         }
         break;
       default:
-        appDataPath = getFallback();
+        appDataPath = process.cwd();
     }
     return appName ? path.resolve(homePath,appName) : homePath;
   } else {
