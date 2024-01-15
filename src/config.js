@@ -18,8 +18,8 @@ class ElectronStore extends Conf {
 		}
 		options.configName = options.name;
 		delete options.name;
-		this.hasSession = isWritable(options.cwd);
 		super(options);
+		Object.defineProperties(this,{hasSession : {value:isWritable(options.cwd)}});
 	}
 	get(...rest){
 		if(!this.hasSession) return undefined;
