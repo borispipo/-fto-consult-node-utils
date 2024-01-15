@@ -21,6 +21,10 @@ class ElectronStore extends Conf {
 		delete options.name;
 		super(options);
 	}
+	remove(key,...rest){
+		if(typeof super.remove =="function") return super.remove(key,...rest);
+		return this.set(key,null);
+	}
 }
 
 module.exports = ElectronStore;
