@@ -1,11 +1,10 @@
 'use strict';
 const path = require('path');
 const Conf = require('conf');
-
+const isWritable = require("./isWritable");
 class ElectronStore extends Conf {
 	constructor(options) {
 		const defaultCwd = "";
-
         options = options && typeof options == 'object' ? options : {}
 		options  =  {
 			name: 'config',
@@ -19,7 +18,16 @@ class ElectronStore extends Conf {
 		}
 		options.configName = options.name;
 		delete options.name;
+		Object.defineProperties(this,{hasSession : {value:isWritable(options.cwd)}})
 		super(options);
+	}
+	get(...rest){
+		if(!this.hasSession) return undefined;
+		return super.get(...rest);
+	}
+	set(...rest){
+		if(!this.hasSession) return undefined;
+		return super.set(...rest);
 	}
 	remove(key,...rest){
 		if(typeof super.remove =="function") return super.remove(key,...rest);
