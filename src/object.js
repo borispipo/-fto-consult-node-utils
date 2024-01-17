@@ -113,7 +113,7 @@ const cloneObject = function (source,cloneLevel) {
             clone[i] = cloneObject(source[i],i+1);
         }
         return clone;
-    } else if (isPlainObj(source)) {
+    } else if (isPlainObject(source)) {
         const clone = {};
         for (var prop in source) {
             if (source.hasOwnProperty(prop)) {
