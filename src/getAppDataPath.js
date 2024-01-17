@@ -10,7 +10,7 @@ module.exports = function getAppDataPath(appName) {
   if (!appDataPath || !fs.existsSync(appDataPath)) {
     const homePath = homedir();
     const HOME = process.env.HOME;
-    switch (process.platform()) {
+    switch (process.platform) {
       case "win32":
         p = path.join("AppData", "Roaming");
         if(fs.existsSync(path.join(homePath,p))){
