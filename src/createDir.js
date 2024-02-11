@@ -12,14 +12,11 @@ module.exports = function createDir(path,cb) {
           }
           // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
           if (e.code === 'ENOENT') { // Throw the original parentDir error on curDir `ENOENT` failure.
-            throw new Error(`EACCES: permission denied, mkdir '${path.resolve(p,"..")}'`);
+            return false;
+            //throw new Error(`EACCES: permission denied, mkdir '${_path.resolve(p,"..")}'`);
           } else {
             console.log(e," making write file directory")
           }
-          /*const caughtErr = ['EACCES', 'EPERM', 'EISDIR'].indexOf(e.code) > -1;
-          if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
-            throw err; // Throw if it's just the last created dir.
-          }*/
        }
     }
     const ex = fs.existsSync(p);
