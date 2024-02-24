@@ -1,4 +1,4 @@
-const {getFilePath,logLevels,supportedLogsLevels:supportedLevels} = require("./utils");
+const {getFilePath,logLevels,supportedLogsLevels:supportedLevels,isDev} = require("./utils");
 const {parseDate} = require("../date");
 const fs = require('fs');
 const stringify = require("../stringify");

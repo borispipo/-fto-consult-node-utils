@@ -71,6 +71,8 @@ const isDev = String(process.env.NODE_ENV).toLowerCase().trim() !== 'production'
 
 const defaultSupportedLevels = isDev ? logLevels : ["error","warning","prod"];
 
+module.exports.isDev = isDev;
+
 module.exports.defaultSupportedLevels = defaultSupportedLevels;
 
 ///la variable d'environnement LOGS_LEVELS : {exemple:prod,error,warning}, permet de spécifier les logs qui seront prise en compte durant l'exécution de l'application
