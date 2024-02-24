@@ -6,19 +6,29 @@ const FILE = require("../file");
 const getAppDataPath = require("../getAppDataPath");
 const path = require('path');
 const {parseDate} = require("../date");
-const {extendObj} = require("../object");
+const {extendObj,isPlainObj} = require("../object");
 
 const logConfig = {};
 
 /**** permet de définir la fonction de configuration
-    @param {object} config
+    @param {object|string} key
+    @param {any} value
 */
-const setConfig = (config)=>{
-    extendObj(logConfig,config);
+const setConfig = (key,value)=>{
+    if(isPlainObj(key)){
+        extendObj(logConfig,key);
+    } else if(typeof key =="string"){
+        logConfig[key] = value;
+    }
+    return logConfig;
 }
 
+const getConfig = (key)=>{
+    const lConfig = Object.assign({},logConfig);
+    return typeof key =="string"? lConfig[key] : lConfig;
+};;
 module.exports.setConfig = setConfig;
-module.exports.getConfig = ()=>Object.assign({},logConfig);
+module.exports.getConfig = getConfig;
 
 /**** retourne le chemin des fichiers logs 
     par défaut les fichiers logs sont stockés dans le dossier /logs/mois-annee/
@@ -28,7 +38,8 @@ module.exports.getFilePath = function(appName) {
     const years = new Date().getFullYear();
     const {day,month,year} = parseDate();
     const date = [month,year].join("-");
-    appName = typeof appName =="string" && appName || typeof logConfig.appName =="string" && logConfig.appName || "";
+    const lappName = getConfig("appName");
+    appName = typeof appName =="string" && appName || typeof lappName =="string" && lappName || "";
     appName =  String(FILE.sanitizeFileName(appName)||'').replaceAll("/","-").replace(/\s+/g, '');
     let fPath = process.env.LOGS_FOLDER && typeof process.env.LOGS_FOLDER =="string" ? FILE.sanitize(process.env.LOGS_FOLDER) : null;
     if(!fPath || !isWritable(fPath)){
