@@ -133,3 +133,46 @@ const cloneObject = function (source,cloneLevel) {
 module.exports.cloneObject = cloneObject;
 
 Object.clone = Object.copy =  cloneObject;
+
+module.exports.map = Object.map = function(obj,fn){
+    if(typeof fn != 'function') {
+        return {};
+    }
+    if(Array.isArray(obj)) return obj.map((item,index)=>{
+        return fn(item,index,index);
+    });
+    if(!(obj) || typeof obj !=='object') {
+        return {};
+    }
+    var oReturn = {};
+    let mapI=0;
+    for (let sCurObjectPropertyName in obj) {
+        if(obj.hasOwnProperty(sCurObjectPropertyName)) {
+            oReturn[sCurObjectPropertyName] = fn.call(obj,obj[sCurObjectPropertyName], sCurObjectPropertyName,mapI,true);
+            mapI++;
+        }
+    }
+    return oReturn;
+}
+/**** 
+*  détermine la taille d'un tableau/object
+*  @param : l'objet à déterminer la taille
+   @param : breakonFirstElementFound {boolean}, retourne immédiatement après le premier élément trouvé
+*/
+module.exports.size = Object.size  = function(obj,breakonFirstElementFound) {
+    if(!obj || typeof obj != "object") return 0;
+    if(Array.isArray(obj)){
+        return obj.length;
+    }
+    if(typeof breakonFirstElementFound !=='boolean'){
+        breakonFirstElementFound = false;
+    }
+    let size = 0;
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            size++;
+            if(breakonFirstElementFound === true) return size;
+        }
+    }
+    return size;
+}
