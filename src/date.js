@@ -3,7 +3,7 @@ const daysNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'
 const monthsNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
 
 function parseDate(date) {
-    const d = new Date(date),
+    let d = new Date(date),
         month = (d.getMonth() + 1),
         day = d.getDate(),
         year = d.getFullYear();
