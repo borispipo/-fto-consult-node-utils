@@ -24,7 +24,7 @@ module.exports = function logger(logLevel,...errors) {
     const logInfo = level.charAt(0).toUpperCase() + level.slice(1);
     const fileName = getFilePath();
     const {day,year,hours,minutes,seconds,dayNameShort,monthNameShort} = parseDate();
-    const currentTime = [dayNameShort,day,monthNameShort,year].join( )+[hours,minutes,seconds].join(":");//DateLib.format(new Date(),"ddd dd mmm yyyy à HH:MM:ss");
+    const currentTime = [dayNameShort,day,monthNameShort,year].join(" ")+" "+[hours,minutes,seconds].join(":");//DateLib.format(new Date(),"ddd dd mmm yyyy à HH:MM:ss");
     const logInConsole = x => console.log(logInfo,currentTime,...errors);
     if(!fileName || (!process.env.LOGS_IN_FILE && (isDev && !process.env.LOGS_IN_CONSOLE))){
         ///file is not writable or environnement is 
