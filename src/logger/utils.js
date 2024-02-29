@@ -33,6 +33,7 @@ module.exports.getConfig = getConfig;
 /**** retourne le chemin des fichiers logs 
     par défaut les fichiers logs sont stockés dans le dossier /logs/mois-annee/
     @param {string} appName, le nom de l'application
+    Si appName n'est pas définit alors les logs seront affichée dans la console
 */
 module.exports.getFilePath = function(appName) {
     const years = new Date().getFullYear();
@@ -40,6 +41,7 @@ module.exports.getFilePath = function(appName) {
     const date = [month,year].join("-");
     const lappName = getConfig("appName");
     appName = typeof appName =="string" && appName || typeof lappName =="string" && lappName || "";
+    if(!appName) return null;
     appName =  String(FILE.sanitizeFileName(appName)||'').replaceAll("/","-").replace(/\s+/g, '');
     let fPath = process.env.LOGS_FOLDER && typeof process.env.LOGS_FOLDER =="string" ? FILE.sanitize(process.env.LOGS_FOLDER) : null;
     if(!fPath || !isWritable(fPath)){
