@@ -3,12 +3,14 @@ const JSONFileManager = require("./src/JSONFileManager");
 const session = require("./src/session");
 const FILE = require("./src/file");
 const stringify = require("./src/stringify");
+const logger = require("./src/logger");
 module.exports = {
     ...require("./src/object"),
     stringify,
     Config : require("./src/config"),
     date : require("./src/date"),
-    logger : require("./src/logger"),
+    logger,
+    Logger : logger,
     session,
     Session : session, 
     createDir : require("./src/createDir"),

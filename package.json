@@ -1,6 +1,6 @@
 {
   "name": "@fto-consult/node-utils",
-  "version": "1.6.6",
+  "version": "1.7.0",
   "description": "Bibliothèque d'outils pour application nodeJS",
   "main": "index.js",
   "scripts": {
