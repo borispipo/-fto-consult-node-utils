@@ -90,3 +90,24 @@ module.exports.JSONParse = function(o,reviverFunc,...rest){
         return reviverFunc.call(context,o,reviver(key,value),...rest);
     },...rest);
 }
+
+/***
+    détermine si l'objet obj ou la valeur obj est un objet json serialiazable
+    @param {any} obj
+    @return {boolean}
+*/
+const isSerializableJSON = function(obj) {
+    if(obj === undefined || obj === null || ["number","boolean","string"].includes(typeof obj)) return true;
+    if(typeof obj !== "object") return false;
+    for (let key in obj) {
+      if (!isSerializableJSON(obj[key])) {
+        return false;
+      }
+    }
+    return true;
+};
+if(typeof JSON.isSerializable !== "function"){
+    JSON.isSerializable = isSerializableJSON;
+}
+module.exports.isSerializable = isSerializableJSON;
+module.exports.isSerializableJSON = isSerializableJSON;
