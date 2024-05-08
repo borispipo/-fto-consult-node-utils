@@ -46,5 +46,5 @@ module.exports = {
     JSONConfig : JSONFileManager,
     isDateObj : require("./src/isDateObj"),
     string : require("./src/string"),
-    compareNPMVersions : require(".src/compareNPMVersions"),
+    compareNPMVersions : require("./src/compareNPMVersions"),
 }
