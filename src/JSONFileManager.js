@@ -36,16 +36,34 @@ module.exports = function(packagePath,...rest){
     const set = (key,value,...rest)=>{
         if(!hasPackage) return false;
         if(typeof key =='string'){
-            if(value === undefined || value === null){
-                delete packageJSON[key];
-            } else {
-                packageJSON[key] = value;
-            }
+            packageJSON[key] = value;
         } else if(isPlainObject(key)){
             extendObj(true,packageJSON,key,value,...rest);
         }
         return packageJSON;
     };
+    const remove = (key)=>{
+        if(!hasPackage || typeof key !=='string' || !key) return false; 
+        const keys = key.trim().split(".");
+        if(keys.length === 1){
+            delete packageJSON[key];
+            return true;
+        }
+        let pJS = packageJSON;
+        let i=0;
+        for(i=0; i<keys.length-1;i++){
+            const k = keys[i] || "";
+            if(!k) continue;
+            if(!isPlainObject(pJS)) return undefined;
+            pJS = pJS[k];
+        }
+        if(i === keys.length-1){
+            if(!isPlainObject(pJS)) return false;
+            delete pJS[keys[i]];
+            return true;
+        }
+        return true;
+    }
     return {
         get hasPackage(){
             return hasPackage;
@@ -111,14 +129,10 @@ module.exports = function(packagePath,...rest){
             return save;
         },
         get remove(){
-            return (key)=>{
-                return set(key,null);
-            }
+            return remove;
         },
         get delete(){
-            return (key)=>{
-                return set(key,null);
-            }
+           return remove;
         }
     }
 }
