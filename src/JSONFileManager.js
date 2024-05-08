@@ -33,6 +33,19 @@ module.exports = function(packagePath,...rest){
             return false;
         }
     };
+    const set = (key,value,...rest)=>{
+        if(!hasPackage) return false;
+        if(typeof key =='string'){
+            if(value === undefined || value === null){
+                delete packageJSON[key];
+            } else {
+                packageJSON[key] = value;
+            }
+        } else if(isPlainObject(key)){
+            extendObj(true,packageJSON,key,value,...rest);
+        }
+        return packageJSON;
+    };
     return {
         get hasPackage(){
             return hasPackage;
@@ -89,21 +102,23 @@ module.exports = function(packagePath,...rest){
             return ()=>packagePath;
         },
         get set(){
-            return (key,value,...rest)=>{
-                if(!hasPackage) return false;
-                if(typeof key =='string'){
-                    packageJSON[key] = value;
-                } else if(isPlainObject(key)){
-                    extendObj(true,packageJSON,key,value,...rest);
-                }
-                return packageJSON;
-            }
+            return set;
         },
         get persist(){
             return save;
         },
         get save(){
             return save;
+        },
+        get remove(){
+            return (key)=>{
+                return set(key,null);
+            }
+        },
+        get delete(){
+            return (key)=>{
+                return set(key,null);
+            }
         }
     }
 }
